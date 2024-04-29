@@ -13,6 +13,7 @@ busca_conj();
 int main(int argc, char *argv[]){
 
     int opcao;
+    scanf("%i", &opcao);
 
     do{
 
