@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define M 3
-#define N 4
+#define M 8
+#define N 10
 
 void limpaTela();
 void pressEnter();
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     limpaTela();
 
     do{
-
+        
         for(int i =0;i<M;i++){
             for(int j =0 ; j< N;j++){
                 printf("%d ",matriz[i][j]);
@@ -176,13 +176,19 @@ void inserir_dados(int qtdConj,int matriz[][N]){
     int lin=0,numCol=0,valor=-1;
     printf("Indice i do conjunto desejado? (0 a %d)\n",qtdConj-1);
     scanf("%d",&lin);
+
     if(lin < 0 || lin >= qtdConj){
         limpaTela();
         printf("Indice invalido! :(\nInsira um indice de 0 a %d\n\n",qtdConj-1);
         pressEnter();
     }
+    // if(matriz[lin][0]!=0){
+    //     limpaTela();
+    //     printf("Conjunto ja possui elementos, impossivel sobreescrever!\n\n");
+    //     pressEnter();
+    // }
     else{
-        
+        for(numCol=0;matriz[lin][numCol] != 0;numCol++){}
         while(numCol != N){
             printf("Valor na coluna %d?\n",numCol);
             scanf("%d",&valor);
@@ -268,13 +274,15 @@ int uniao_conj(int qtdConj,int matriz[][N]){
         return 0;
     }
     else{
-        for(k ;k < N && matriz[lastConj][k] != 0;k++){
+        for(k ;k < N && matriz[conj1][k] != 0;k++){
             matriz[lastConj][k] = matriz[conj1][k];
         }
         int p = k;
         for(int i=0 ;i < N && matriz[conj2][i] != 0;i++){
-            matriz[lastConj][k] = matriz[conj2][i];
-            k++;
+            if(!busca_seq(matriz[lastConj],matriz[conj2][i])){
+                matriz[lastConj][k] = matriz[conj2][i];
+                k++;
+            }
         }
         limpaTela();
         printf("Uniao realizada com sucesso!\n\n");
