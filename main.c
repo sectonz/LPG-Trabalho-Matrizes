@@ -108,11 +108,11 @@ int main(int argc, char *argv[]){
                 break;
             case 6:
                 limpaTela();
-                // print_conj();
+                print_conj(qtdConj, matriz);
                 break;
             case 7:
                 limpaTela();
-                // print_all_conj();
+                print_all_conj(qtdConj, matriz);
                 break;
             case 8:
                 limpaTela();
@@ -163,6 +163,7 @@ int criar_conj(int qtdConj){
         return 0;
     }
 }
+
 int busca_seq(int v[],int chave){
     for(int i=0;i<N;i++){
         if(chave==v[i]){
@@ -289,6 +290,50 @@ int uniao_conj(int qtdConj,int matriz[][N]){
         pressEnter();
         return 1;
    }
+}
+
+void print_conj(int qtdConj, int matriz[][N]){
+
+    limpaTela();
+
+    int indice;
+
+    printf("Informe o índice do conjunto que deseja (0 a %i): \n", qtdConj - 1);
+    scanf("%i", &indice);
+    printf("\nConjunto %i = ", indice);
+
+    for(int j = 0; matriz[indice][j] != '\0' && j < N; j++){
+        printf("%i ", matriz[indice][j]);
+    }
+
+    printf("\n");
+    pressEnter();
+
+    
+
+}
+
+void print_all_conj(int qtdConj, int matriz[][N]){
+
+    limpaTela();
+
+    printf("Temos %i conjunto(s):\n", qtdConj);
+
+    for(int i = 0; i < qtdConj; i++){
+        if(matriz[i][0] == 0){
+            printf("Conjunto %i = vazio", i);
+        }else{
+            printf("Conjunto %i = ", i);
+            for(int j = 0; j < N; j++){
+                printf("%i ", matriz[i][j]);
+            }
+        }
+
+        printf("\n");
+    }
+
+    printf("\n");
+    pressEnter();
 }
 
 
