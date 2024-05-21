@@ -14,7 +14,7 @@ int remove_conj(int qtdConj,int matriz[][N]);
 int uniao_conj(int qtdConj,int matriz[][N]);
 int qtdCol(int matriz[],int lin);
 int intersec_conj(int qtdConj, int matriz[][N]);
-void print_conj(int qtdConj, int matriz[][N]);
+int print_conj(int qtdConj, int matriz[][N]);
 void print_all_conj(int qtdConj, int matriz[][N]);
 void busca_conj(int qtdConj, int matriz[][N]);
 
@@ -29,13 +29,13 @@ int main(int argc, char *argv[]){
 
     do{
         
-        for(int i =0;i<M;i++){
-            for(int j =0 ; j< N;j++){
-                printf("%d ",matriz[i][j]);
-            }
-            printf("\n");
-        }
-        printf("%d\n",qtdConj);
+        // for(int i =0;i<M;i++){
+        //     for(int j =0 ; j< N;j++){
+        //         printf("%d ",matriz[i][j]);
+        //     }
+        //     printf("\n");
+        // }
+        //printf("%d\n",qtdConj);
 
         printf("Escolha uma opcao:\n\n");
         printf("1 - Criar conjunto vazio\n");
@@ -305,18 +305,37 @@ int uniao_conj(int qtdConj,int matriz[][N]){
    }
 }
 
-void print_conj(int qtdConj, int matriz[][N]){
+int print_conj(int qtdConj, int matriz[][N]){
 
     limpaTela();
 
     int indice;
 
-    printf("Informe o índice do conjunto que deseja (0 a %i): \n", qtdConj - 1);
-    scanf("%i", &indice);
-    printf("\nConjunto %i = ", indice);
+    if(qtdConj != 0){
+        printf("Informe o índice do conjunto que deseja (0 a %i): \n", qtdConj - 1);
+        scanf("%i", &indice);
+    }else{
+        limpaTela();
+        printf("Nao ha conjuntos para imprimir\n\n");
+        pressEnter();
+        return 0;
+    }
 
-    for(int j = 0; matriz[indice][j] != '\0' && j < N; j++){
+    if(matriz[indice][0] == 0){
+        limpaTela();
+        printf("Conjunto %i = vazio\n\n", indice);
+        pressEnter();
+        return 0;
+    }else{
+        limpaTela();
+        printf("Conjunto %i = ", indice);
+        for(int j = 0; matriz[indice][j] != '\0' && j < N; j++){
         printf("%i ", matriz[indice][j]);
+        }
+        printf("\n\n");
+        pressEnter();
+
+        return 0;
     }
 
     printf("\n");
@@ -396,7 +415,7 @@ int intersec_conj(int qtdConj, int matriz[][N]){
         return 0;
     }else if(matriz[conj1][0] == 0 || matriz[conj2][0] == 0){
         limpaTela();
-        printf("\nUm dos (ou ambos) conjuntos esta(o) vazio(s), portanto, nao foi feita a intersecao!\n");
+        printf("Um dos (ou ambos) conjuntos esta(o) vazio(s), portanto, nao foi feita a intersecao!\n");
         pressEnter();
         return 0;
     //}else if(){
@@ -410,12 +429,12 @@ int intersec_conj(int qtdConj, int matriz[][N]){
         }
         if(matriz[lastConj][0] == 0){
             limpaTela();
-            printf("\nNao ha elementos em comum entre os conjuntos, portanto, nao foi feita a intersecao!\n");
+            printf("Nao ha elementos em comum entre os conjuntos, portanto, nao foi feita a intersecao!\n");
             pressEnter();
             return 0;
         }else{
             limpaTela();
-            printf("\nIntersecao realizada com sucesso!\n");
+            printf("Intersecao realizada com sucesso!\n");
         }
         pressEnter();
         return 1;
